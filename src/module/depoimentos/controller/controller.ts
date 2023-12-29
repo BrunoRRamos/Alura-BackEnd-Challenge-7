@@ -6,8 +6,6 @@ import { httpCodes } from "../../../utils/httpCodes";
 type DepoimentoInput = Omit<Depoimento, "id">;
 export class DepoimentoController {
 
-    private notFoundMsg: string = 'Requisição falhou id Inválido'
-
     static async postHandle(req: Request, res: Response): Promise<Response> {
         const { foto, depoimento, nomePessoa }: DepoimentoInput = req.body;
         const newDepoimento = await DepoimentoUseCase.createExecute({ foto, depoimento, nomePessoa });
