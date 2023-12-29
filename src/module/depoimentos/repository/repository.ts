@@ -26,6 +26,29 @@ export class DepoimentoRepository {
         return depomiento;
     }
 
+    static async loadHomePage(): Promise<Depoimento[] | []> {
+        const depoimentoRows: number = await prisma.depoimento.count();
+        let randomDepoimentos: Depoimento[] = [];
+
+        if(depoimentoRows >= 3) {
+            randomDepoimentos = await prisma.depoimento.findMany({
+                take: 3,
+                orderBy: {
+                    id: 'asc'
+                },
+            });
+        } else {
+            randomDepoimentos = await prisma.depoimento.findMany({
+                take: depoimentoRows,
+                orderBy: {
+                    id: "asc",
+                },
+            });
+        }
+
+        return randomDepoimentos;
+    }
+
     static async put(id: string, data: Prisma.DepoimentoUpdateInput): Promise<Depoimento | null> {
         const updateDepoimento = await prisma.depoimento.update({
             where: {

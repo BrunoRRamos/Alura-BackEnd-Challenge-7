@@ -5,7 +5,6 @@ import { httpCodes } from "../../../utils/httpCodes";
 
 type DepoimentoInput = Omit<Depoimento, "id">;
 export class DepoimentoController {
-
     static async postHandle(req: Request, res: Response): Promise<Response> {
         const { foto, depoimento, nomePessoa }: DepoimentoInput = req.body;
         const newDepoimento = await DepoimentoUseCase.createExecute({ foto, depoimento, nomePessoa });
@@ -18,6 +17,12 @@ export class DepoimentoController {
         const getDepoimento = await DepoimentoUseCase.getByIdExecute(id);
 
         return res.status(httpCodes.OK).send(getDepoimento);
+    }
+
+    static async loadHomePageHandle(req: Request, res: Response): Promise<Response> {
+        const loadHomePage = await DepoimentoUseCase.loadHomePageExecute();
+
+        return res.status(httpCodes.OK).send(loadHomePage);
     }
 
     static async putHandle(req: Request, res: Response): Promise<Response> {

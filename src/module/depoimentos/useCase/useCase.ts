@@ -16,6 +16,12 @@ export class DepoimentoUseCase {
         return getDepoimento;
     }
 
+    static async loadHomePageExecute() {
+        const loadHomePage: Depoimento[] = await DepoimentoRepository.loadHomePage();
+
+        return loadHomePage;
+    }
+
     static async putExecute(id: string, data: Prisma.DepoimentoUpdateInput) {
         const putDepoimento = await DepoimentoRepository.put(id, data);
 
