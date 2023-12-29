@@ -1,9 +1,10 @@
-import { Depoimento } from "@prisma/client";
+import { Depoimento, Prisma } from "@prisma/client";
 import prisma from "../../../middleware/prisma";
 
 type DepoimentoInput = Omit<Depoimento, "id">;
+
 export class DepoimentoRepository {
-  static async create(depoimento: DepoimentoInput): Promise<Depoimento> {
+  static async post(depoimento: DepoimentoInput): Promise<Depoimento> {
     const newDepoimento = await prisma.depoimento.create({
       data: {
         foto: depoimento.foto,
@@ -25,7 +26,24 @@ export class DepoimentoRepository {
     return depomiento;
   }
 
-  //static async put(id: string, depoimento: DepoimentoInput): Promise<Depoimento | null> {
-  //  
-  //}
+  static async put(id: string, data: Prisma.DepoimentoUpdateInput): Promise<Depoimento | null> {
+    const updateDepoimento = await prisma.depoimento.update({
+      where: {
+        id,
+      },
+      data,
+    });
+
+    return updateDepoimento;
+  }
+
+  static async delete(id: string): Promise<Depoimento | null> {
+    const deletedDepoimento = await prisma.depoimento.delete({
+      where: {
+        id: id
+      }
+    });
+
+    return deletedDepoimento;
+  }
 }

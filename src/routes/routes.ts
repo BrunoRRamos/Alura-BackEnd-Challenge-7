@@ -1,11 +1,15 @@
 import express, { Request, Response } from "express";
+import routerDepoimentos from "../module/depoimentos/routes";
+import { httpCodes } from "../utils/httpCodes";
 
 const routes = (app: any) => {
     app.route("/").get((req: Request, res: Response) => {
-    res.status(200).send({ title: "Home page Test Json" });
+    res.status(httpCodes.OK).send({ title: "Home page Test Json" });
   });
 
-  app.use(express.json());
+  app
+  .use(express.json())
+  .use(routerDepoimentos);
 }
 
 export default routes;
