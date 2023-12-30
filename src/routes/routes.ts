@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import routerDepoimentos from "../module/depoimentos/routes";
 import { httpCodes } from "../utils/httpCodes";
 import cors from "cors";
+import routerDestinos from "../module/destinos/routes";
 
 
 const routes = (app: any) => {
@@ -12,7 +13,8 @@ const routes = (app: any) => {
   app
   .use(cors())
   .use(express.json())
-  .use(routerDepoimentos);
+  .use(routerDepoimentos)
+  .use(routerDestinos);
 }
 
 export default routes;

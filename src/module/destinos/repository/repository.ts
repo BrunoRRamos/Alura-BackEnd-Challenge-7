@@ -1,4 +1,4 @@
-import { Destino } from "@prisma/client";
+import { Destino, Prisma } from "@prisma/client";
 import prisma from "../../../middleware/prisma";
 import { DestinoInput } from "../../../types";
 
@@ -32,10 +32,10 @@ export class DestinoRepository {
         return destino;
     }
 
-    static async put(id: string, data: DestinoInput): Promise<Destino | null> {
+    static async put(id: string, data: Prisma.DestinoUpdateInput): Promise<Destino | null> {
         const updatedDestino = await prisma.destino.update({
             where: {
-                id: id,
+                id,
             },
             data,
         });
@@ -46,8 +46,8 @@ export class DestinoRepository {
     static async delete(id: string): Promise<Destino | null> {
         const deletedDestino =  await prisma.destino.delete({
             where: {
-                id
-            }
+                id,
+            },
         });
 
         return deletedDestino;
