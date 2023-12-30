@@ -16,3 +16,10 @@ model Depoimento {
   depoimento    String
   nomePessoa    String
 }
+
+model Destino {
+  id            String    @id @default(cuid())
+  foto          String       
+  nome          String
+  preco         Float
+}
